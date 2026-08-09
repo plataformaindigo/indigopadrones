@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ficha Médica del Paciente</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css_alternativo.css">
+
+  <style>
+body {
+  /* Si la imagen está en la misma carpeta raíz que tu HTML */
+  background-image: url("fondo.jpg"); /* Cambia "fondo.jpg" por el nombre real de tu archivo */
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+    /* ⚠️ CORRECCIÓN: Ahora aquí solo hay estilos CSS limpitos */
+    #header-logo {
+      display: block;
+      max-height: 180px;
+      max-width: 100%;
+      height: auto;
+      width: auto;
+      margin: 0 auto 20px auto; /* Centrado automático y margen inferior */
+    }
+
+    .full-width { grid-column: span 3; }
+
+    /* Mobile Responsiveness mejorado */
+    @media (max-width: 768px) {
+      #container { 
+        padding: 20px;
+        margin: 15px;
+        width: auto;
+        border-radius: 12px;
+      }
+
+      #header-logo-container {
+        width: 100% !important;
+        margin: 0 auto;
+      }
+
+      #header-logo {
+        display: block !important;
+        max-width: 250px;
+        margin: 0 auto;
+      }
+
+      h1 { 
+        font-size: 32px;
+        margin-bottom: 20px;
+      }
+
+      .section-title { 
+        font-size: 38px !important;
+        text-align: center; 
+      }
+
+      h2 {
+        font-size: 18px !important;
+        padding: 0 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <script src="js_ficha.js"></script>
+  <script src="modalCargando.js"></script>
+  <script src="notificar.js"></script>
+  <script src="AlertCustom.js"></script>
+  
+  <div id="container">
+
+    <div id="header-logo-container">
+      <img id="header-logo" src="logo.gif" alt="Logo">
+    </div>
+
+    <form id="fichaForm">
+
+      <div class="step active">
+        <h2 style="
+          text-align: center; 
+          margin: 20px auto; 
+          padding: 0 15px; 
+          max-width: 800px; 
+          font-size: 22px; 
+          line-height: 1.6; 
+          display: block; 
+          width: auto;">
+
+          <div class="instrucciones-alert">
+            <div style="
+              margin-top: 15px; 
+              font-size: 32px; 
+              font-weight: normal; 
+              text-align: left;">
+              
+              <span style="font-size: 42px; font-weight: bold; display: block; margin-bottom: 10px;">
+                ⚠️ Atención:
+              </span>
+              
+              <p style="margin: 0 0 10px 0;">Se le solicitará la siguiente documentación (asegúrese de tener todo a mano antes de continuar):</p>
+              
+              <ul style="margin: 0 0 15px 0; padding-left: 25px; font-weight: 500;">
+                <li>Calendario de Vacunas</li>
+                <li>Credencial del Titular</li>
+                <li>Credencial del Paciente</li>
+                <li>DNI del Paciente</li>
+                <li>DNI del Titular</li>
+                <li>Partida de Nacimiento</li>
+                <li>Certificado Único de Discapacidad (CUD)</li>
+              </ul>
+
+              <p style="margin: 0; font-size: 28px; font-style: italic; opacity: 0.85; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 10px;">
+                💡 <strong>Nota:</strong> Para cada documento, podrá elegir entre tomar una foto con su cámara o seleccionar un archivo desde su galería.
+              </p>
+            </div>
+          </div>
+        </h2>
+        <div class="navigation-buttons">
+          <button type="button" onclick="nextStep()">COMENZAR</button>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="section-title">IDENTIFICACIÓN DEL PACIENTE</div>
+        <div class="grid-container">
+          <div class="grid-item full-width">
+            <label>Apellido</label>
+            <input type="text" 
+                   name="paciente_apellido" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>Nombre</label>
+            <input type="text" 
+                   name="paciente_nombre" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>DNI</label>
+            <input type="number" name="paciente_dni">
+          </div>
+        </div>
+        <div class="navigation-buttons">
+          <button type="button" onclick="prevStep()">ATRÁS</button>
+          <button type="button" onclick="nextStep()">SIGUIENTE</button>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="section-title">FECHAS Y EDAD</div>
+        <div class="grid-container">
+          <div class="grid-item full-width">
+            <label>Fecha de Nacimiento</label>
+            <input type="date" id="paciente_fecha_nac" name="paciente_fecha_nac" oninput="actualizarEdad()">
+          </div>
+          <div class="grid-item full-width">
+            <label>Edad</label>
+            <input type="text" name="paciente_edad" id="edadResultado" readonly>
+          </div>
+          <div class="grid-item full-width">
+            <label>Vencimiento del CUD</label>
+            <input type="date" name="vencimiento_cud">
+          </div>
+        </div>
+        <div class="navigation-buttons">
+          <button type="button" onclick="prevStep()">ATRÁS</button>
+          <button type="button" onclick="nextStep()">SIGUIENTE</button>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="section-title">LOCALIZACIÓN</div>
+        <div class="grid-container">
+          <div class="grid-item full-width">
+            <label>Domicilio</label>
+            <input type="text" 
+                   name="paciente_domicilio" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>Localidad</label>
+            <input type="text" 
+                   name="paciente_localidad" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>Provincia</label>
+            <input type="text" 
+                   name="paciente_provincia" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+        </div>
+        <div class="navigation-buttons">
+          <button type="button" onclick="prevStep()">ATRÁS</button>
+          <button type="button" onclick="nextStep()">SIGUIENTE</button>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="section-title">INFORMACIÓN EDUCATIVA</div>
+        <div class="grid-container">
+          <div class="grid-item full-width">
+            <label>Escuela/Jardín donde asiste</label>
+            <input type="text" 
+                   name="escuela_jardin" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>Grado/Año</label>
+            <input type="text" 
+                   name="grado_anio" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>Turno</label>
+            <input type="text" 
+                   name="turno_escuela" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+        </div>
+        <div class="navigation-buttons">
+          <button type="button" onclick="prevStep()">ATRÁS</button>
+          <button type="button" onclick="nextStep()">SIGUIENTE</button>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="section-title">COBERTURA MÉDICA</div>
+        <div class="grid-container">
+          <div class="grid-item full-width">
+            <label>Obra Social</label>
+            <input type="text" 
+                   name="obra_social" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>Tipo de afiliación</label>
+            <select name="os_tafi" class="custom-select">
+              <option value="" disabled selected>Seleccione una opción</option>
+              <option value="Dependencia">Relación de dependencia</option>
+              <option value="Prepaga">Medicina Prepaga</option>
+              <option value="Monotributo">Monotributista</option>
+            </select>
+          </div>
+
+          <div class="grid-item full-width">
+            <label>N° de Afiliado</label>
+            <input type="text" name="os_numafi">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>Plan</label>
+            <input type="text" 
+                   name="os_plan" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>Servicio de Urgencias</label>
+            <input type="text" 
+                   name="servicio_urgencias" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+        </div>
+        <div class="navigation-buttons">
+          <button type="button" onclick="prevStep()">ATRÁS</button>
+          <button type="button" onclick="nextStep()">SIGUIENTE</button>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="section-title">TUTOR (1) - IDENTIDAD</div>
+        <div class="grid-container">
+          <div class="grid-item full-width">
+            <label>Padre/Madre/Tutor [1]</label>
+            <input type="text" 
+                   name="tutor1_nombre" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>Dirección [1]</label>
+            <input type="text" 
+                   name="tutor1_direccion" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>DNI [1]</label>
+            <input type="text" name="tutor1_dni">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>Ocupación [1]</label>
+            <input type="text" 
+                   name="tutor1_ocupacion" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+        </div>
+        <div class="navigation-buttons">
+          <button type="button" onclick="prevStep()">ATRÁS</button>
+          <button type="button" onclick="nextStep()">SIGUIENTE</button>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="section-title">TUTOR (1) - CONTACTO</div>
+        <div class="grid-container">
+          <div class="grid-item full-width">
+            <label>E-Mail [1]</label>
+            <input type="email" 
+                   name="tutor1_mail" 
+                   style="text-transform: lowercase;" 
+                   onchange="this.value = this.value.toLowerCase().trim();">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>Tel. Celular [1]</label>
+            <input type="tel" name="tutor1_celular">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>Tel. Contacto de Emergencia [1]</label>
+            <input type="tel" name="tutor1_emergencia">
+          </div>
+        </div>
+        <div class="navigation-buttons">
+          <button type="button" onclick="prevStep()">ATRÁS</button>
+          <button type="button" onclick="nextStep()">SIGUIENTE</button>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="section-title">TUTOR (1) - OBRA SOCIAL</div>
+        <div class="grid-container">
+          <div class="grid-item full-width">
+            <label>Obra Social [1]</label>
+            <input type="text" 
+                   name="tutor1_os" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>N° de Afiliado</label>
+            <input type="text" name="tutor1_afiliado_num">
+          </div>
+          <div class="grid-item full-width">
+            <label>Plan</label>
+            <input type="text" name="tutor1_plan">
+          </div>
+          <div class="grid-item full-width">
+            <label>¿Es Titular?</label>
+            <input type="text" name="tutor1_es_titular" placeholder="Sí / No">
+          </div>
+        </div>
+        <div class="navigation-buttons">
+          <button type="button" onclick="prevStep()">ATRÁS</button>
+          <button type="button" onclick="nextStep()">SIGUIENTE</button>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="section-title">TUTOR (2) - IDENTIDAD</div>
+        <div class="grid-container">
+          <div class="grid-item full-width">
+            <label>Padre/Madre/Tutor [2]</label>
+            <input type="text" 
+                   name="tutor2_nombre" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>Dirección [2]</label>
+            <input type="text" 
+                   name="tutor2_direccion" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>DNI [2]</label>
+            <input type="text" name="tutor2_dni">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>Ocupación [2]</label>
+            <input type="text" 
+                   name="tutor2_ocupacion" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+        </div>
+        <div class="navigation-buttons">
+          <button type="button" onclick="prevStep()">ATRÁS</button>
+          <button type="button" onclick="nextStep()">SIGUIENTE</button>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="section-title">TUTOR (2) - CONTACTO</div>
+        <div class="grid-container">
+          <div class="grid-item full-width">
+            <label>E-Mail [2]</label>
+            <input type="email" 
+                   name="tutor2_mail" 
+                   style="text-transform: lowercase;" 
+                   onchange="this.value = this.value.toLowerCase().trim();">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>Tel. Celular [2]</label>
+            <input type="tel" name="tutor2_celular">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>Tel. Contacto de Emergencia [2]</label>
+            <input type="tel" name="tutor2_emergencia">
+          </div>
+        </div>
+        <div class="navigation-buttons">
+          <button type="button" onclick="prevStep()">ATRÁS</button>
+          <button type="button" onclick="nextStep()">SIGUIENTE</button>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="section-title">TUTOR (2) - OBRA SOCIAL</div>
+        <div class="grid-container">
+          <div class="grid-item full-width">
+            <label>Obra Social [2]</label>
+            <input type="text" 
+                   name="tutor2_os" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>N° de Afiliado</label>
+            <input type="text" name="tutor2_afiliado_num">
+          </div>
+          <div class="grid-item full-width">
+            <label>Plan</label>
+            <input type="text" name="tutor2_plan">
+          </div>
+          <div class="grid-item full-width">
+            <label>¿Es Titular?</label>
+            <input type="text" name="tutor2_es_titular" placeholder="Sí / No">
+          </div>
+        </div>
+        <div class="navigation-buttons">
+          <button type="button" onclick="prevStep()">ATRÁS</button>
+          <button type="button" onclick="nextStep()">SIGUIENTE</button>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="section-title">PROFESIONALES DE SALUD</div>
+        <div class="grid-container">
+          <div class="grid-item full-width">
+            <label>Pediatra</label>
+            <input type="text" 
+                   name="med_pediatra" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>Neurólogo</label>
+            <input type="text" 
+                   name="med_neuro" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+
+          <div class="grid-item full-width">
+            <label>Psiquiatra</label>
+            <input type="text" 
+                   name="med_psiquiatra" 
+                   style="text-transform: capitalize;" 
+                   onblur="this.value = toTitleCase(this.value);">
+          </div>
+        </div>
+        <div class="navigation-buttons">
+          <button type="button" onclick="prevStep()">ATRÁS</button>
+          <button type="button" onclick="nextStep()">SIGUIENTE</button>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="section-title">SITUACIÓN CLÍNICA</div>
+        <div class="grid-container">
+          <div class="grid-item full-width">
+            <label>Diagnóstico Según CUD</label>
+            <input type="text" name="cud_diag">
+          </div>
+          <div class="grid-item full-width">
+            <label>Alergias</label>
+            <input type="text" name="med_alergias">
+          </div>
+          <div class="grid-item full-width">
+            <label>Medicación</label>
+            <input type="text" name="med_medicacion">
+          </div>
+        </div>
+        <div class="navigation-buttons">
+          <button type="button" onclick="prevStep()">ATRÁS</button>
+          <button type="button" onclick="nextStep()">SIGUIENTE</button>
+        </div>
+      </div>
+
+
+
+      <div class="step">
+<!-- ================== MODULO FOTOS PORTABLE ================== -->
+
+
+    <style>
+  /* Estilos específicos para el Modal de Instrucciones */
+  .instrucciones-dialog {
+    border: none;
+    border-radius: var(--border-radius-lg);
+    padding: 0;
+    max-width: 550px;
+    width: 90%;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    overflow: hidden;
+    animation: fadeInModal 0.4s ease-out;
+  }
+
+  .instrucciones-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+  }
+
+  .instrucciones-container {
+    padding: 40px;
+    background-color: var(--color-bg-white);
+    font-family: 'Inter', sans-serif;
+  }
+
+  .instrucciones-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .instrucciones-icon {
+    font-size: 60px;
+    margin-bottom: 10px;
+  }
+
+  .instrucciones-header h2 {
+    color: var(--color-primary);
+    font-size: 40px;
+    margin: 0;
+    font-weight: 800;
+  }
+
+  .instrucciones-body {
+    text-align: left;
+    color: var(--color-text-dark);
+    margin-bottom: 30px;
+  }
+
+  .instrucciones-card {
+    font-size: 22px;
+    line-height: 1.4;
+    margin-bottom: 20px;
+  }
+
+  .instrucciones-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+  }
+
+  .instrucciones-list li {
+    background: var(--color-bg-light);
+    margin-bottom: 8px;
+    padding: 12px;
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .instrucciones-alert {
+    background-color: #fff9e6;
+    border-left: 5px solid var(--color-accent);
+    padding: 20px;
+    border-radius: var(--border-radius-sm);
+    font-size: 32px;
+    line-height: 1.5;
+  }
+
+  .instrucciones-btn {
+    width: 100%;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 25px;
+    font-size: 28px;
+    font-weight: 800;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  }
+
+  .instrucciones-btn:hover {
+    background-color: var(--color-secondary);
+    transform: translateY(-3px);
+  }
+
+  @keyframes fadeInModal {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Ajuste para móviles */
+  @media (max-width: 600px) {
+    .instrucciones-container { padding: 25px; }
+    .instrucciones-header h2 { font-size: 30px; }
+    .instrucciones-card { font-size: 18px; }
+    .instrucciones-alert { font-size: 16px; }
+  }
+</style>
+    
+
+
+<!-- ===== FOTOS EN GRILLA ===== -->
+<div class="grid-fotos-3x3">
+
+
+<div class="modulo-foto-instancia" data-id="foto_vacunas">
+  <h2 class="section-title">CALENDARIO VACUNAS FRENTE</h2>
+  <div class="photo-drop-area order-image-card">
+    <p class="drop-text">FOTO VACUNAS FRENTE</p>
+  </div>
+  <div class="acciones-foto">
+    <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+    <button type="button" class="clear-button">BORRAR</button>
+  </div>
+  <dialog class="photo-modal">
+    <div class="modal-inner">
+      <h3>Seleccionar Fuente</h3>
+      <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+      <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+      <input type="file" class="input-gallery" accept="image/*" hidden>
+      <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+      <hr>
+      <button type="button" class="close-modal">CANCELAR</button>
+    </div>
+  </dialog>
+</div>
+
+
+<div class="modulo-foto-instancia" data-id="foto_vacunas2">
+  <h2 class="section-title">CALENDARIO VACUNAS DORSO</h2>
+  <div class="photo-drop-area order-image-card">
+    <p class="drop-text">FOTO VACUNAS DORSO</p>
+  </div>
+  <div class="acciones-foto">
+    <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+    <button type="button" class="clear-button">BORRAR</button>
+  </div>
+  <dialog class="photo-modal">
+    <div class="modal-inner">
+      <h3>Seleccionar Fuente</h3>
+      <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+      <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+      <input type="file" class="input-gallery" accept="image/*" hidden>
+      <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+      <hr>
+      <button type="button" class="close-modal">CANCELAR</button>
+    </div>
+  </dialog>
+</div>
+
+
+
+  <!-- CREDENCIAL TITULAR -->
+  <div class="modulo-foto-instancia" data-id="foto_credencialtitular">
+    <h2 class="section-title">CREDENCIAL TITULAR</h2>
+    <div class="photo-drop-area order-image-card">
+      <p class="drop-text">CREDENCIAL TITULAR</p>
+    </div>
+    <div class="acciones-foto">
+      <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+      <button type="button" class="clear-button">BORRAR</button>
+    </div>
+    <dialog class="photo-modal">
+      <div class="modal-inner">
+        <h3>Seleccionar Fuente</h3>
+        <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+        <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+        <input type="file" class="input-gallery" accept="image/*" hidden>
+        <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+        <hr>
+        <button type="button" class="close-modal">CANCELAR</button>
+      </div>
+    </dialog>
+  </div>
+
+  <!-- CREDENCIAL PACIENTE -->
+  <div class="modulo-foto-instancia" data-id="foto_credencialpaciente">
+    <h2 class="section-title">CREDENCIAL PACIENTE</h2>
+    <div class="photo-drop-area order-image-card">
+      <p class="drop-text">CREDENCIAL PACIENTE</p>
+    </div>
+    <div class="acciones-foto">
+      <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+      <button type="button" class="clear-button">BORRAR</button>
+    </div>
+    <dialog class="photo-modal">
+      <div class="modal-inner">
+        <h3>Seleccionar Fuente</h3>
+        <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+        <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+        <input type="file" class="input-gallery" accept="image/*" hidden>
+        <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+        <hr>
+        <button type="button" class="close-modal">CANCELAR</button>
+      </div>
+    </dialog>
+  </div>
+
+  <!-- FOTO DNI FRENTE -->
+  <div class="modulo-foto-instancia" data-id="foto_dni_1">
+    <h2 class="section-title">DNI PACIENTE FRENTE</h2>
+    <div class="photo-drop-area order-image-card">
+      <p class="drop-text">DNI PACIENTE FRENTE</p>
+    </div>
+    <div class="acciones-foto">
+      <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+      <button type="button" class="clear-button">BORRAR</button>
+    </div>
+    <dialog class="photo-modal">
+      <div class="modal-inner">
+        <h3>Seleccionar Fuente</h3>
+        <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+        <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+        <input type="file" class="input-gallery" accept="image/*" hidden>
+        <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+        <hr>
+        <button type="button" class="close-modal">CANCELAR</button>
+      </div>
+    </dialog>
+  </div>
+
+  <!-- FOTO DNI REVERSO -->
+  <div class="modulo-foto-instancia" data-id="foto_dni_2">
+    <h2 class="section-title">DNI PACIENTE REVERSO</h2>
+    <div class="photo-drop-area order-image-card">
+      <p class="drop-text">DNI PACIENTE REVERSO</p>
+    </div>
+    <div class="acciones-foto">
+      <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+      <button type="button" class="clear-button">BORRAR</button>
+    </div>
+    <dialog class="photo-modal">
+      <div class="modal-inner">
+        <h3>Seleccionar Fuente</h3>
+        <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+        <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+        <input type="file" class="input-gallery" accept="image/*" hidden>
+        <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+        <hr>
+        <button type="button" class="close-modal">CANCELAR</button>
+      </div>
+    </dialog>
+  </div>
+
+
+
+  <!-- DNI TITULAR FRENTE -->
+  <div class="modulo-foto-instancia" data-id="foto_dnititular_1">
+    <h2 class="section-title">DNI TITULAR FRENTE</h2>
+    <div class="photo-drop-area order-image-card">
+      <p class="drop-text">DNI TITULAR FRENTE</p>
+    </div>
+    <div class="acciones-foto">
+      <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+      <button type="button" class="clear-button">BORRAR</button>
+    </div>
+    <dialog class="photo-modal">
+      <div class="modal-inner">
+        <h3>Seleccionar Fuente</h3>
+        <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+        <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+        <input type="file" class="input-gallery" accept="image/*" hidden>
+        <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+        <hr>
+        <button type="button" class="close-modal">CANCELAR</button>
+      </div>
+    </dialog>
+  </div>
+
+  <!-- DNI TITULAR REVERSO -->
+  <div class="modulo-foto-instancia" data-id="foto_dnititular_2">
+    <h2 class="section-title">DNI TITULAR REVERSO</h2>
+    <div class="photo-drop-area order-image-card">
+      <p class="drop-text">DNI TITULAR REVERSO</p>
+    </div>
+    <div class="acciones-foto">
+      <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+      <button type="button" class="clear-button">BORRAR</button>
+    </div>
+    <dialog class="photo-modal">
+      <div class="modal-inner">
+        <h3>Seleccionar Fuente</h3>
+        <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+        <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+        <input type="file" class="input-gallery" accept="image/*" hidden>
+        <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+        <hr>
+        <button type="button" class="close-modal">CANCELAR</button>
+      </div>
+    </dialog>
+  </div>
+
+
+  <!-- PARTIDA NACIMIENTO -->
+  <div class="modulo-foto-instancia" data-id="foto_partida">
+    <h2 class="section-title">PARTIDA DE NACIMIENTO</h2>
+    <div class="photo-drop-area order-image-card">
+      <p class="drop-text">PARTIDA DE NACIMIENTO</p>
+    </div>
+    <div class="acciones-foto">
+      <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+      <button type="button" class="clear-button">BORRAR</button>
+    </div>
+    <dialog class="photo-modal">
+      <div class="modal-inner">
+        <h3>Seleccionar Fuente</h3>
+        <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+        <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+        <input type="file" class="input-gallery" accept="image/*" hidden>
+        <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+        <hr>
+        <button type="button" class="close-modal">CANCELAR</button>
+      </div>
+    </dialog>
+  </div>
+
+
+<div class="modulo-foto-instancia" data-id="foto_cud">
+  <h2 class="section-title">FOTO CUD</h2>
+  <div class="photo-drop-area order-image-card">
+    <p class="drop-text">CUD</p>
+  </div>
+  <div class="acciones-foto">
+    <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+    <button type="button" class="clear-button">BORRAR</button>
+  </div>
+  <dialog class="photo-modal">
+    <div class="modal-inner">
+      <h3>Seleccionar Fuente</h3>
+      <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+      <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+      <input type="file" class="input-gallery" accept="image/*" hidden>
+      <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+      <hr>
+      <button type="button" class="close-modal">CANCELAR</button>
+    </div>
+  </dialog>
+</div>
+
+
+
+</div>
+
+<script>
+const STORAGE_FOTOS = {};
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.modulo-foto-instancia').forEach(modulo => {
+    const id = modulo.dataset.id;
+    const modal = modulo.querySelector('.photo-modal');
+    const dropArea = modulo.querySelector('.photo-drop-area');
+    const btnTrigger = modulo.querySelector('.btn-modal-trigger');
+    const btnClear = modulo.querySelector('.clear-button');
+    const btnClose = modulo.querySelector('.close-modal');
+    const btnCam = modulo.querySelector('.btn-camera-action');
+    const btnGal = modulo.querySelector('.btn-gallery-action');
+    const inputCam = modulo.querySelector('.input-camera');
+    const inputGal = modulo.querySelector('.input-gallery');
+
+    STORAGE_FOTOS[id] = null;
+
+    btnTrigger.onclick = () => modal.showModal();
+    dropArea.onclick = () => !STORAGE_FOTOS[id] && modal.showModal();
+    btnClose.onclick = () => modal.close();
+    btnCam.onclick = () => inputCam.click();
+    btnGal.onclick = () => inputGal.click();
+
+    const handleFile = e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      processImage(file, id, modulo);
+      modal.close();
+    };
+
+    inputCam.onchange = handleFile;
+    inputGal.onchange = handleFile;
+
+    btnClear.onclick = e => {
+      e.stopPropagation();
+      STORAGE_FOTOS[id] = null;
+      renderModulo(modulo, id);
+    };
+
+    window.addEventListener('paste', e => {
+      if (!modal.open) return;
+      const item = [...e.clipboardData.items].find(i => i.type.startsWith('image/'));
+      if (item) {
+        processImage(item.getAsFile(), id, modulo);
+        modal.close();
+      }
+    });
+  });
+});
+
+function processImage(file, id, contenedor) {
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const MAX = 900;
+      let w = img.width, h = img.height;
+      if (w > h && w > MAX) { h *= MAX / w; w = MAX; }
+      else if (h > MAX) { w *= MAX / h; h = MAX; }
+      canvas.width = w;
+      canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      STORAGE_FOTOS[id] = canvas.toDataURL('image/jpeg', 0.6);
+      renderModulo(contenedor, id);
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function renderModulo(modulo, id) {
+  const drop = modulo.querySelector('.photo-drop-area');
+  const btnTrigger = modulo.querySelector('.btn-modal-trigger');
+  const btnClear = modulo.querySelector('.clear-button');
+  const img = STORAGE_FOTOS[id];
+
+  if (!img) {
+    drop.innerHTML = `<p class="drop-text">VOLVER A CARGAR</p>`;
+    btnTrigger.style.display = 'inline-block';
+    btnClear.style.display = 'none';
+  } else {
+    drop.innerHTML = `<img src="${img}">`;
+    btnTrigger.style.display = 'none';
+    btnClear.style.display = 'inline-block';
+  }
+}
+
+function obtenerTodasLasFotosJSON() {
+  return STORAGE_FOTOS;
+}
+</script>
+
+<style>
+.grid-fotos-3x3 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.modulo-foto-instancia {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.06);
+}
+
+.modulo-cud {
+  max-width: 420px;
+  margin: 0 auto 40px auto;
+}
+
+.photo-drop-area {
+  min-height: 220px;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.photo-drop-area img {
+  max-width: 100%;
+  max-height: 260px;
+  border-radius: 8px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 17px;
+}
+
+.acciones-foto {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.clear-button {
+  display: none;
+  background: #ff4444;
+  color: #fff;
+  margin-left: 10px;
+}
+
+.modal-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Esto afectará a todos los modales de captura de fotos */
+.photo-modal {
+  width: 90%;          /* Ocupa el 90% del ancho en pantallas chicas */
+  max-width: 600px;    /* El ancho máximo que quieres que alcance (puedes subirlo a 800px si lo quieres gigante) */
+  padding: 40px;       /* Espacio interno para que no se vea apretado */
+  border-radius: 20px; /* Bordes más redondeados y modernos */
+  border: none;        /* Quita el borde tosco por defecto */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3); /* Sombra para darle profundidad */
+}
+
+/* Para que el contenido interno use todo el ancho y se vea ordenado */
+.modal-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;           /* Más espacio entre botones */
+}
+
+/* Para agrandar los botones dentro del modal */
+.modal-inner button {
+  padding: 20px;       /* Botones más altos */
+  font-size: 60px;     /* Letra más grande */
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Estilo para el fondo oscurecido cuando el modal está abierto */
+.photo-modal::backdrop {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px); /* Efecto de desenfoque al fondo */
+}
+
+/* --- MODIFICACIÓN PARA GRILLA DE 2 COLUMNAS EN MÓVILES --- */
+
+.grid-fotos-3x3 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Por defecto 2 columnas */
+  gap: 15px; /* Reducimos un poco el espacio para que quepan bien */
+  margin-top: 30px;
+}
+
+@media (max-width: 600px) {
+  .grid-fotos-3x3 {
+    grid-template-columns: repeat(2, 1fr); /* Forzamos 2 columnas en celular */
+    gap: 10px; /* Espacio más pequeño para pantallas chicas */
+  }
+
+  .modulo-foto-instancia {
+    padding: 10px; /* Reducimos el padding interno del cuadro */
+  }
+
+  .section-title {
+    font-size: 14px; /* Achicamos el texto para que no se rompa el diseño */
+  }
+
+  .photo-drop-area {
+    min-height: 150px; /* Altura más baja para que entren más cuadros en pantalla */
+  }
+}
+</style>
+
+<!-- ================== FIN MODULO ================== -->
+
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </form>
+  </div>
+
+  <div id="modal-registro-ok">
+    <div class="modal-notif-card">
+      <div style="font-size: 60px; margin-bottom: 15px;">✅</div>
+      <h2 style="margin: 0 0 10px 0; color: #333; font-size: 28px;">¡Registro Listo!</h2>
+      <p style="color: #666; font-size: 18px; margin-bottom: 30px;">Presiona el botón para notificar tu registro.</p>
+      
+      <button onclick="notificar()" class="btn-notificar-wa">
+        <span>Notificar WhatsApp</span>
+      </button>
+    </div>
+  </div>
+
+<div id="loadingModal" style="display: none;">
+  <div class="modal-contenido">
+    <p>Guardando ficha médica, por favor espere...</p>
+  </div>
+</div>
+</body>
+
+</html>

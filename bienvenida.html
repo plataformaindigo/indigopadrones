@@ -1,0 +1,174 @@
+<!-- NO REQUIERE CAMBIOS PARA MIGRACION-->
+<!-- NO REQUIERE CAMBIOS PARA MIGRACION-->
+<!-- NO REQUIERE CAMBIOS PARA MIGRACION-->
+
+
+<dialog id="modal-instrucciones" class="instrucciones-dialog">
+  <div class="instrucciones-container">
+    <div class="instrucciones-header">
+      <div class="instrucciones-icon">📸</div>
+      <h2>Estimado paciente</h2>
+    </div>
+
+    <div class="instrucciones-body">
+      <div class="instrucciones-card">
+        <p>Para que la documentación sea <strong>clara y legible</strong>, le pedimos amablemente:</p>
+        <ul class="instrucciones-list">
+          <li><span>✅</span> Buena iluminación ambiental.</li>
+          <li><span>✅</span> Encuadrar el documento sin márgenes sobrantes.</li>
+          <li><span>✅</span> Evitar reflejos de luces o flash.</li>
+        </ul>
+      </div>
+
+      <div class="instrucciones-alert">
+        <p><strong>⚠️ IMPORTANTE:</strong> Si experimenta problemas técnicos con la cámara desde este formulario, le sugerimos tomar las fotos previamente y cargarlas desde su <strong>galería</strong>.</p>
+      </div>
+    </div>
+
+    <button id="btn-instrucciones-ok" class="instrucciones-btn">
+      ENTENDIDO
+    </button>
+  </div>
+</dialog>
+
+<style>
+  /* Estilos específicos para el Modal de Instrucciones */
+  .instrucciones-dialog {
+    border: none;
+    border-radius: var(--border-radius-lg);
+    padding: 0;
+    max-width: 550px;
+    width: 90%;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    overflow: hidden;
+    animation: fadeInModal 0.4s ease-out;
+  }
+
+  .instrucciones-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+  }
+
+  .instrucciones-container {
+    padding: 40px;
+    background-color: var(--color-bg-white);
+    font-family: 'Inter', sans-serif;
+  }
+
+  .instrucciones-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .instrucciones-icon {
+    font-size: 60px;
+    margin-bottom: 10px;
+  }
+
+  .instrucciones-header h2 {
+    color: var(--color-primary);
+    font-size: 40px;
+    margin: 0;
+    font-weight: 800;
+  }
+
+  .instrucciones-body {
+    text-align: left;
+    color: var(--color-text-dark);
+    margin-bottom: 30px;
+  }
+
+  .instrucciones-card {
+    font-size: 22px;
+    line-height: 1.4;
+    margin-bottom: 20px;
+  }
+
+  .instrucciones-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+  }
+
+  .instrucciones-list li {
+    background: var(--color-bg-light);
+    margin-bottom: 8px;
+    padding: 12px;
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .instrucciones-alert {
+    background-color: #fff9e6;
+    border-left: 5px solid var(--color-accent);
+    padding: 20px;
+    border-radius: var(--border-radius-sm);
+    font-size: 19px;
+    line-height: 1.5;
+  }
+
+  .instrucciones-btn {
+    width: 100%;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 25px;
+    font-size: 28px;
+    font-weight: 800;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  }
+
+  .instrucciones-btn:hover {
+    background-color: var(--color-secondary);
+    transform: translateY(-3px);
+  }
+
+  @keyframes fadeInModal {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Ajuste para móviles */
+  @media (max-width: 600px) {
+    .instrucciones-container { padding: 25px; }
+    .instrucciones-header h2 { font-size: 30px; }
+    .instrucciones-card { font-size: 18px; }
+    .instrucciones-alert { font-size: 16px; }
+  }
+</style>
+
+<script>
+  // Autoejecución del Modal
+  (function() {
+    function initInstrucciones() {
+      const modal = document.getElementById('modal-instrucciones');
+      const btn = document.getElementById('btn-instrucciones-ok');
+
+      if (modal && !modal.open) {
+        // Un pequeño delay de 500ms para que el usuario vea el fondo cargar
+        setTimeout(() => {
+          modal.showModal();
+        }, 500);
+      }
+
+      if (btn) {
+        btn.addEventListener('click', () => {
+          modal.close();
+        });
+      }
+    }
+
+    // Ejecutar al cargar el DOM
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initInstrucciones);
+    } else {
+      initInstrucciones();
+    }
+  })();
+</script>

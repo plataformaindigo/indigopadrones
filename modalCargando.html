@@ -1,0 +1,37 @@
+<!-- NO REQUIERE CAMBIOS PARA MIGRACION-->
+<!-- NO REQUIERE CAMBIOS PARA MIGRACION-->
+<!-- NO REQUIERE CAMBIOS PARA MIGRACION-->
+
+
+<div id="loadingModal"
+  style="
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.7);
+    z-index:9999;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    color:white;
+    font-family:'Arial Black', sans-serif;
+  ">
+  <div style="
+    border:10px solid #f3f3f3;
+    border-top:10px solid #62B6F7;
+    border-radius:50%;
+    width:80px;
+    height:80px;
+    animation:spin 2s linear infinite;
+    margin-bottom:20px;">
+  </div>
+  <h2 style="font-size:30px;">ESTAMOS REGISTRANDO SUS DATOS... ESTE PROCESO PUEDE LLEVAR UNOS MINUTOS. POR FAVOR, NO CIERRE LA APLICACION...</h2>
+</div>
+
+<style>
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+

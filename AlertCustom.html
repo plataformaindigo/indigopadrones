@@ -1,0 +1,71 @@
+<!-- NO REQUIERE CAMBIOS PARA MIGRACION-->
+<!-- NO REQUIERE CAMBIOS PARA MIGRACION-->
+<!-- NO REQUIERE CAMBIOS PARA MIGRACION-->
+
+
+
+<script>
+/**
+ * SISTEMA DE ALERTAS ESTÉTICAS PARA GAS
+ * Se autoinyecta y sobreescribe el alert nativo.
+ */
+(function() {
+  // 1. Inyectamos el CSS "Clínico" con variables y efectos modernos
+  const style = document.createElement('style');
+  style.textContent = `
+    #custom-alert-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px);
+      display: none; align-items: center; justify-content: center;
+      z-index: 9999; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    #custom-alert-box {
+      background: white; padding: 25px; border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2); max-width: 400px;
+      width: 90%; text-align: center; border-top: 5px solid #2196F3;
+      animation: alertShow 0.3s ease;
+    }
+    #custom-alert-message { color: #333; margin-bottom: 20px; font-size: 1.1em; line-height: 1.5; }
+    #custom-alert-btn {
+      background: #2196F3; color: white; border: none; padding: 10px 25px;
+      border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s;
+    }
+    #custom-alert-btn:hover { background: #1976D2; transform: scale(1.05); }
+    @keyframes alertShow {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // 2. Creamos la estructura HTML del modal
+  const overlay = document.createElement('div');
+  overlay.id = 'custom-alert-overlay';
+  overlay.innerHTML = `
+    <div id="custom-alert-box">
+      <div id="custom-alert-message"></div>
+      <button id="custom-alert-btn">Aceptar</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  const msgElement = overlay.querySelector('#custom-alert-message');
+  const btnElement = overlay.querySelector('#custom-alert-btn');
+
+  // 3. Sobreescribimos el alert original
+  window.alert = function(mensaje) {
+    msgElement.textContent = mensaje;
+    overlay.style.display = 'flex';
+    
+    // Enfocamos el botón para que puedan dar "Enter"
+    btnElement.focus();
+
+    return new Promise((resolve) => {
+      btnElement.onclick = function() {
+        overlay.style.display = 'none';
+        resolve();
+      };
+    });
+  };
+})();
+</script>

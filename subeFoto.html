@@ -1,0 +1,579 @@
+<!-- NO REQUIERE CAMBIOS PARA MIGRACION-->
+<!-- NO REQUIERE CAMBIOS PARA MIGRACION-->
+<!-- NO REQUIERE CAMBIOS PARA MIGRACION-->
+
+
+
+<!-- ================== MODULO FOTOS PORTABLE ================== -->
+
+
+    <style>
+  /* Estilos específicos para el Modal de Instrucciones */
+  .instrucciones-dialog {
+    border: none;
+    border-radius: var(--border-radius-lg);
+    padding: 0;
+    max-width: 550px;
+    width: 90%;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    overflow: hidden;
+    animation: fadeInModal 0.4s ease-out;
+  }
+
+  .instrucciones-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+  }
+
+  .instrucciones-container {
+    padding: 40px;
+    background-color: var(--color-bg-white);
+    font-family: 'Inter', sans-serif;
+  }
+
+  .instrucciones-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .instrucciones-icon {
+    font-size: 60px;
+    margin-bottom: 10px;
+  }
+
+  .instrucciones-header h2 {
+    color: var(--color-primary);
+    font-size: 40px;
+    margin: 0;
+    font-weight: 800;
+  }
+
+  .instrucciones-body {
+    text-align: left;
+    color: var(--color-text-dark);
+    margin-bottom: 30px;
+  }
+
+  .instrucciones-card {
+    font-size: 22px;
+    line-height: 1.4;
+    margin-bottom: 20px;
+  }
+
+  .instrucciones-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+  }
+
+  .instrucciones-list li {
+    background: var(--color-bg-light);
+    margin-bottom: 8px;
+    padding: 12px;
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .instrucciones-alert {
+    background-color: #fff9e6;
+    border-left: 5px solid var(--color-accent);
+    padding: 20px;
+    border-radius: var(--border-radius-sm);
+    font-size: 32px;
+    line-height: 1.5;
+  }
+
+  .instrucciones-btn {
+    width: 100%;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 25px;
+    font-size: 28px;
+    font-weight: 800;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  }
+
+  .instrucciones-btn:hover {
+    background-color: var(--color-secondary);
+    transform: translateY(-3px);
+  }
+
+  @keyframes fadeInModal {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Ajuste para móviles */
+  @media (max-width: 600px) {
+    .instrucciones-container { padding: 25px; }
+    .instrucciones-header h2 { font-size: 30px; }
+    .instrucciones-card { font-size: 18px; }
+    .instrucciones-alert { font-size: 16px; }
+  }
+</style>
+    
+
+
+<!-- ===== FOTOS EN GRILLA ===== -->
+<div class="grid-fotos-3x3">
+
+
+<div class="modulo-foto-instancia" data-id="foto_vacunas">
+  <h2 class="section-title">CALENDARIO VACUNAS FRENTE</h2>
+  <div class="photo-drop-area order-image-card">
+    <p class="drop-text">FOTO VACUNAS FRENTE</p>
+  </div>
+  <div class="acciones-foto">
+    <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+    <button type="button" class="clear-button">BORRAR</button>
+  </div>
+  <dialog class="photo-modal">
+    <div class="modal-inner">
+      <h3>Seleccionar Fuente</h3>
+      <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+      <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+      <input type="file" class="input-gallery" accept="image/*" hidden>
+      <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+      <hr>
+      <button type="button" class="close-modal">CANCELAR</button>
+    </div>
+  </dialog>
+</div>
+
+
+<div class="modulo-foto-instancia" data-id="foto_vacunas2">
+  <h2 class="section-title">CALENDARIO VACUNAS DORSO</h2>
+  <div class="photo-drop-area order-image-card">
+    <p class="drop-text">FOTO VACUNAS DORSO</p>
+  </div>
+  <div class="acciones-foto">
+    <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+    <button type="button" class="clear-button">BORRAR</button>
+  </div>
+  <dialog class="photo-modal">
+    <div class="modal-inner">
+      <h3>Seleccionar Fuente</h3>
+      <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+      <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+      <input type="file" class="input-gallery" accept="image/*" hidden>
+      <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+      <hr>
+      <button type="button" class="close-modal">CANCELAR</button>
+    </div>
+  </dialog>
+</div>
+
+
+
+  <!-- CREDENCIAL TITULAR -->
+  <div class="modulo-foto-instancia" data-id="foto_credencialtitular">
+    <h2 class="section-title">CREDENCIAL TITULAR</h2>
+    <div class="photo-drop-area order-image-card">
+      <p class="drop-text">CREDENCIAL TITULAR</p>
+    </div>
+    <div class="acciones-foto">
+      <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+      <button type="button" class="clear-button">BORRAR</button>
+    </div>
+    <dialog class="photo-modal">
+      <div class="modal-inner">
+        <h3>Seleccionar Fuente</h3>
+        <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+        <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+        <input type="file" class="input-gallery" accept="image/*" hidden>
+        <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+        <hr>
+        <button type="button" class="close-modal">CANCELAR</button>
+      </div>
+    </dialog>
+  </div>
+
+  <!-- CREDENCIAL PACIENTE -->
+  <div class="modulo-foto-instancia" data-id="foto_credencialpaciente">
+    <h2 class="section-title">CREDENCIAL PACIENTE</h2>
+    <div class="photo-drop-area order-image-card">
+      <p class="drop-text">CREDENCIAL PACIENTE</p>
+    </div>
+    <div class="acciones-foto">
+      <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+      <button type="button" class="clear-button">BORRAR</button>
+    </div>
+    <dialog class="photo-modal">
+      <div class="modal-inner">
+        <h3>Seleccionar Fuente</h3>
+        <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+        <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+        <input type="file" class="input-gallery" accept="image/*" hidden>
+        <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+        <hr>
+        <button type="button" class="close-modal">CANCELAR</button>
+      </div>
+    </dialog>
+  </div>
+
+  <!-- FOTO DNI FRENTE -->
+  <div class="modulo-foto-instancia" data-id="foto_dni_1">
+    <h2 class="section-title">DNI PACIENTE FRENTE</h2>
+    <div class="photo-drop-area order-image-card">
+      <p class="drop-text">DNI PACIENTE FRENTE</p>
+    </div>
+    <div class="acciones-foto">
+      <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+      <button type="button" class="clear-button">BORRAR</button>
+    </div>
+    <dialog class="photo-modal">
+      <div class="modal-inner">
+        <h3>Seleccionar Fuente</h3>
+        <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+        <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+        <input type="file" class="input-gallery" accept="image/*" hidden>
+        <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+        <hr>
+        <button type="button" class="close-modal">CANCELAR</button>
+      </div>
+    </dialog>
+  </div>
+
+  <!-- FOTO DNI REVERSO -->
+  <div class="modulo-foto-instancia" data-id="foto_dni_2">
+    <h2 class="section-title">DNI PACIENTE REVERSO</h2>
+    <div class="photo-drop-area order-image-card">
+      <p class="drop-text">DNI PACIENTE REVERSO</p>
+    </div>
+    <div class="acciones-foto">
+      <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+      <button type="button" class="clear-button">BORRAR</button>
+    </div>
+    <dialog class="photo-modal">
+      <div class="modal-inner">
+        <h3>Seleccionar Fuente</h3>
+        <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+        <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+        <input type="file" class="input-gallery" accept="image/*" hidden>
+        <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+        <hr>
+        <button type="button" class="close-modal">CANCELAR</button>
+      </div>
+    </dialog>
+  </div>
+
+
+
+  <!-- DNI TITULAR FRENTE -->
+  <div class="modulo-foto-instancia" data-id="foto_dnititular_1">
+    <h2 class="section-title">DNI TITULAR FRENTE</h2>
+    <div class="photo-drop-area order-image-card">
+      <p class="drop-text">DNI TITULAR FRENTE</p>
+    </div>
+    <div class="acciones-foto">
+      <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+      <button type="button" class="clear-button">BORRAR</button>
+    </div>
+    <dialog class="photo-modal">
+      <div class="modal-inner">
+        <h3>Seleccionar Fuente</h3>
+        <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+        <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+        <input type="file" class="input-gallery" accept="image/*" hidden>
+        <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+        <hr>
+        <button type="button" class="close-modal">CANCELAR</button>
+      </div>
+    </dialog>
+  </div>
+
+  <!-- DNI TITULAR REVERSO -->
+  <div class="modulo-foto-instancia" data-id="foto_dnititular_2">
+    <h2 class="section-title">DNI TITULAR REVERSO</h2>
+    <div class="photo-drop-area order-image-card">
+      <p class="drop-text">DNI TITULAR REVERSO</p>
+    </div>
+    <div class="acciones-foto">
+      <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+      <button type="button" class="clear-button">BORRAR</button>
+    </div>
+    <dialog class="photo-modal">
+      <div class="modal-inner">
+        <h3>Seleccionar Fuente</h3>
+        <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+        <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+        <input type="file" class="input-gallery" accept="image/*" hidden>
+        <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+        <hr>
+        <button type="button" class="close-modal">CANCELAR</button>
+      </div>
+    </dialog>
+  </div>
+
+
+  <!-- PARTIDA NACIMIENTO -->
+  <div class="modulo-foto-instancia" data-id="foto_partida">
+    <h2 class="section-title">PARTIDA DE NACIMIENTO</h2>
+    <div class="photo-drop-area order-image-card">
+      <p class="drop-text">PARTIDA DE NACIMIENTO</p>
+    </div>
+    <div class="acciones-foto">
+      <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+      <button type="button" class="clear-button">BORRAR</button>
+    </div>
+    <dialog class="photo-modal">
+      <div class="modal-inner">
+        <h3>Seleccionar Fuente</h3>
+        <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+        <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+        <input type="file" class="input-gallery" accept="image/*" hidden>
+        <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+        <hr>
+        <button type="button" class="close-modal">CANCELAR</button>
+      </div>
+    </dialog>
+  </div>
+
+
+<div class="modulo-foto-instancia" data-id="foto_cud">
+  <h2 class="section-title">FOTO CUD</h2>
+  <div class="photo-drop-area order-image-card">
+    <p class="drop-text">CUD</p>
+  </div>
+  <div class="acciones-foto">
+    <button type="button" class="btn-modal-trigger btn-outline-custom">SUBIR FOTO</button>
+    <button type="button" class="clear-button">BORRAR</button>
+  </div>
+  <dialog class="photo-modal">
+    <div class="modal-inner">
+      <h3>Seleccionar Fuente</h3>
+      <input type="file" class="input-camera" accept="image/*" capture="environment" hidden>
+      <button type="button" class="btn-camera-action">📸 TOMAR FOTO</button>
+      <input type="file" class="input-gallery" accept="image/*" hidden>
+      <button type="button" class="btn-gallery-action">🖼️ GALERÍA</button>
+      <hr>
+      <button type="button" class="close-modal">CANCELAR</button>
+    </div>
+  </dialog>
+</div>
+
+
+
+</div>
+
+<script>
+const STORAGE_FOTOS = {};
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.modulo-foto-instancia').forEach(modulo => {
+    const id = modulo.dataset.id;
+    const modal = modulo.querySelector('.photo-modal');
+    const dropArea = modulo.querySelector('.photo-drop-area');
+    const btnTrigger = modulo.querySelector('.btn-modal-trigger');
+    const btnClear = modulo.querySelector('.clear-button');
+    const btnClose = modulo.querySelector('.close-modal');
+    const btnCam = modulo.querySelector('.btn-camera-action');
+    const btnGal = modulo.querySelector('.btn-gallery-action');
+    const inputCam = modulo.querySelector('.input-camera');
+    const inputGal = modulo.querySelector('.input-gallery');
+
+    STORAGE_FOTOS[id] = null;
+
+    btnTrigger.onclick = () => modal.showModal();
+    dropArea.onclick = () => !STORAGE_FOTOS[id] && modal.showModal();
+    btnClose.onclick = () => modal.close();
+    btnCam.onclick = () => inputCam.click();
+    btnGal.onclick = () => inputGal.click();
+
+    const handleFile = e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      processImage(file, id, modulo);
+      modal.close();
+    };
+
+    inputCam.onchange = handleFile;
+    inputGal.onchange = handleFile;
+
+    btnClear.onclick = e => {
+      e.stopPropagation();
+      STORAGE_FOTOS[id] = null;
+      renderModulo(modulo, id);
+    };
+
+    window.addEventListener('paste', e => {
+      if (!modal.open) return;
+      const item = [...e.clipboardData.items].find(i => i.type.startsWith('image/'));
+      if (item) {
+        processImage(item.getAsFile(), id, modulo);
+        modal.close();
+      }
+    });
+  });
+});
+
+function processImage(file, id, contenedor) {
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const MAX = 900;
+      let w = img.width, h = img.height;
+      if (w > h && w > MAX) { h *= MAX / w; w = MAX; }
+      else if (h > MAX) { w *= MAX / h; h = MAX; }
+      canvas.width = w;
+      canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      STORAGE_FOTOS[id] = canvas.toDataURL('image/jpeg', 0.6);
+      renderModulo(contenedor, id);
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function renderModulo(modulo, id) {
+  const drop = modulo.querySelector('.photo-drop-area');
+  const btnTrigger = modulo.querySelector('.btn-modal-trigger');
+  const btnClear = modulo.querySelector('.clear-button');
+  const img = STORAGE_FOTOS[id];
+
+  if (!img) {
+    drop.innerHTML = `<p class="drop-text">VOLVER A CARGAR</p>`;
+    btnTrigger.style.display = 'inline-block';
+    btnClear.style.display = 'none';
+  } else {
+    drop.innerHTML = `<img src="${img}">`;
+    btnTrigger.style.display = 'none';
+    btnClear.style.display = 'inline-block';
+  }
+}
+
+function obtenerTodasLasFotosJSON() {
+  return STORAGE_FOTOS;
+}
+</script>
+
+<style>
+.grid-fotos-3x3 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.modulo-foto-instancia {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.06);
+}
+
+.modulo-cud {
+  max-width: 420px;
+  margin: 0 auto 40px auto;
+}
+
+.photo-drop-area {
+  min-height: 220px;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.photo-drop-area img {
+  max-width: 100%;
+  max-height: 260px;
+  border-radius: 8px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 17px;
+}
+
+.acciones-foto {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.clear-button {
+  display: none;
+  background: #ff4444;
+  color: #fff;
+  margin-left: 10px;
+}
+
+.modal-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Esto afectará a todos los modales de captura de fotos */
+.photo-modal {
+  width: 90%;          /* Ocupa el 90% del ancho en pantallas chicas */
+  max-width: 600px;    /* El ancho máximo que quieres que alcance (puedes subirlo a 800px si lo quieres gigante) */
+  padding: 40px;       /* Espacio interno para que no se vea apretado */
+  border-radius: 20px; /* Bordes más redondeados y modernos */
+  border: none;        /* Quita el borde tosco por defecto */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3); /* Sombra para darle profundidad */
+}
+
+/* Para que el contenido interno use todo el ancho y se vea ordenado */
+.modal-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;           /* Más espacio entre botones */
+}
+
+/* Para agrandar los botones dentro del modal */
+.modal-inner button {
+  padding: 20px;       /* Botones más altos */
+  font-size: 60px;     /* Letra más grande */
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Estilo para el fondo oscurecido cuando el modal está abierto */
+.photo-modal::backdrop {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px); /* Efecto de desenfoque al fondo */
+}
+
+/* --- MODIFICACIÓN PARA GRILLA DE 2 COLUMNAS EN MÓVILES --- */
+
+.grid-fotos-3x3 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Por defecto 2 columnas */
+  gap: 15px; /* Reducimos un poco el espacio para que quepan bien */
+  margin-top: 30px;
+}
+
+@media (max-width: 600px) {
+  .grid-fotos-3x3 {
+    grid-template-columns: repeat(2, 1fr); /* Forzamos 2 columnas en celular */
+    gap: 10px; /* Espacio más pequeño para pantallas chicas */
+  }
+
+  .modulo-foto-instancia {
+    padding: 10px; /* Reducimos el padding interno del cuadro */
+  }
+
+  .section-title {
+    font-size: 14px; /* Achicamos el texto para que no se rompa el diseño */
+  }
+
+  .photo-drop-area {
+    min-height: 150px; /* Altura más baja para que entren más cuadros en pantalla */
+  }
+}
+</style>
+
+<!-- ================== FIN MODULO ================== -->
