@@ -1,21 +1,3 @@
-function obtenerTodasLasFotosJSON() {
-  // Esta función busca los valores en Base64 mapeando directamente el data-id de los nuevos módulos
-  // Se asume que los inputs ocultos donde guardás el Base64 siguen una nomenclatura consistente o usan estos IDs
-  return {
-    foto_vacunas: document.getElementById("base64_vacunas")?.value || "",
-    foto_vacunas2: document.getElementById("base64_vacunas2")?.value || "",
-    foto_credencialtitular: document.getElementById("base64_os_titular")?.value || "",
-    foto_credencialpaciente: document.getElementById("base64_os_paciente")?.value || "",
-    foto_dni_1: document.getElementById("base64_dni_frontal")?.value || "",
-    foto_dni_2: document.getElementById("base64_dni_dorso")?.value || "",
-    foto_dnititular_1: document.getElementById("base64_dni_tit_frontal")?.value || "",
-    foto_dnititular_2: document.getElementById("base64_dni_tit_dorso")?.value || "",
-    foto_partida: document.getElementById("base64_partida")?.value || "",
-    foto_cud: document.getElementById("base64_cud")?.value || ""
-  };
-}
-
-
 // Agrega la URL de tu Aplicación Web desplegada en Google Apps Script
 const URL_WEB_APP = "https://script.google.com/macros/s/AKfycbwgPs8zF6qvksEMxGEadcG2SG4oovWWTyHI1lqC3WHtWBtQP37E5eTXNXBETeSSLKxi/exec";
 
