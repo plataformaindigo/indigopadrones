@@ -1,5 +1,5 @@
 // Agrega la URL de tu Aplicación Web desplegada en Google Apps Script
-const URL_WEB_APP = "https://script.google.com/macros/s/AKfycbwgPs8zF6qvksEMxGEadcG2SG4oovWWTyHI1lqC3WHtWBtQP37E5eTXNXBETeSSLKxi/exec";
+const URL_WEB_APP = "https://script.google.com/macros/s/AKfycbw0LKiBZNxqcckMOtil1_0Z5HYXG2RZJu7Z5gtsnUHeoJKhnXIgCujTouUkXvABScDc/exec";
 
 function enviarBackendBasico() {
   const form = document.getElementById("fichaForm");
