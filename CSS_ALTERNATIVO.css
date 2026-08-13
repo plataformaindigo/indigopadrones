@@ -1,341 +1,333 @@
 /* =============================================================================
-     VARIABLES DE COLOR E IDENTIDAD INSTITUCIONAL
-     ============================================================================= */
-  :root {
-    --color-nav-dark: #0f2e46;       /* Azul Naval Corporativo */
-    --color-primary: #00a8cc;        /* Cian Institucional */
-    --color-primary-hover: #008cae;  /* Cian Oscuro para Hover */
-    --color-secondary: #f37023;      /* Naranja/Mandarina para acentos */
-    --color-success: #10b981;        /* Verde Esmeralda */
-    --color-text-dark: #1e293b;      /* Gris oscuro para textos principales */
-    --color-text-muted: #64748b;     /* Gris medio */
-    --color-bg-overlay: rgba(255, 255, 255, 0.94); 
-    --radius-lg: 20px;
-    --radius-md: 12px;
-  }
+   VARIABLES DE COLOR E IDENTIDAD INSTITUCIONAL
+   ============================================================================= */
+:root {
+  --color-nav-dark: #0f2e46;        /* Azul Naval Corporativo */
+  --color-primary: #00a8cc;         /* Cian Institucional */
+  --color-primary-hover: #008cae;   /* Cian Oscuro para Hover */
+  --color-secondary: #f37023;       /* Naranja/Mandarina para acentos */
+  --color-success: #10b981;         /* Verde Esmeralda */
+  --color-text-dark: #1e293b;       /* Gris oscuro para textos principales */
+  --color-text-muted: #64748b;      /* Gris medio */
+  --color-bg-overlay: rgba(255, 255, 255, 0.96); 
+  --radius-lg: 16px;
+  --radius-md: 10px;
+}
 
-  /* Base */
+/* Reset básico preventivo */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Base */
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 10px; /* Reducido para celular */
+  background: linear-gradient(135deg, #eef2f5 0%, #dbe4eb 100%);
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  color: var(--color-text-dark);
+}
+
+/* Contenedor Principal */
+#container {
+  width: 100%;
+  max-width: 850px;
+  margin: 10px auto;
+  padding: 20px 15px; /* Ajustado para móvil */
+  background-color: var(--color-bg-overlay);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 25px rgba(15, 46, 70, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+/* Logo */
+#header-logo-container {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+#header-logo {
+  display: block !important;
+  width: 85%; 
+  max-width: 280px; /* Ajustado */
+  height: auto;
+  margin: 0 auto;
+}
+
+h1, h3 {
+  font-size: 22px; /* Reducido de 34px */
+  color: var(--color-nav-dark);
+  font-weight: 800;
+  margin: 10px 0;
+  letter-spacing: -0.3px;
+}
+
+.section-title {
+  font-size: 16px !important; /* Reducido de 24px */
+  font-weight: 800;
+  color: var(--color-secondary);
+  margin: 25px 0 15px 0;
+  border-bottom: 2px solid var(--color-secondary);
+  text-align: left;
+  padding-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Grid e Inputs */
+.grid-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.grid-item {
+  background: #ffffff;
+  padding: 14px; /* Reducido de 22px */
+  border-radius: var(--radius-md);
+  border: 1px solid #e2e8f0;
+  text-align: left;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s ease;
+}
+
+.grid-item:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(0, 168, 204, 0.12);
+}
+
+.grid-item label {
+  font-size: 14px; /* Reducido drásticamente de 28px/22px */
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--color-nav-dark);
+  display: block;
+}
+
+/* Entradas de Texto y Formularios */
+.grid-item input {
+  width: 100%;
+  height: 44px; /* Estándar accesible móvil (44-48px) */
+  font-size: 16px; /* Evita que iOS aplique zoom automático al enfocar */
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1.5px solid #cbd5e1;
+  background: #f8fafc;
+  color: var(--color-text-dark);
+  transition: all 0.25s ease;
+}
+
+.grid-item input:focus {
+  border-color: var(--color-primary);
+  background: #ffffff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 168, 204, 0.15);
+}
+
+/* Select Personalizado Institucional */
+.grid-item select {
+  width: 100%;
+  height: 44px;
+  font-size: 16px;
+  padding: 0 36px 0 12px;
+  border-radius: 8px;
+  border: 1.5px solid #cbd5e1;
+  background-color: #f8fafc;
+  transition: all 0.25s ease;
+  color: var(--color-text-dark);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%230f2e46' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+}
+
+.grid-item select:focus {
+  border-color: var(--color-primary);
+  background-color: #ffffff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 168, 204, 0.15);
+}
+
+/* Botones Generales */
+.navigation-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+button {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 14px 18px; /* Reducido de 22px 30px */
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px; /* Reducido de 22px */
+  font-weight: 700;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 8px rgba(0, 168, 204, 0.2);
+  flex: 1; 
+  display: inline-block;
+  letter-spacing: 0.3px;
+}
+
+button:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(1px);
+  filter: brightness(0.95);
+}
+
+/* Estilos para Botón Atrás / Secundario */
+button[onclick*="atras"], #restaurar-btn {
+  background-color: #e2e8f0;
+  color: var(--color-nav-dark);
+  box-shadow: none;
+}
+
+button[onclick*="atras"]:hover, #restaurar-btn:hover {
+  background-color: #cbd5e1;
+  color: var(--color-nav-dark);
+}
+
+/* Botón Guardar Final */
+.btn-guardar-full {
+  width: 100%;
+  margin-top: 20px !important;
+  padding: 16px !important;
+  font-size: 16px !important;
+  background-color: var(--color-success) !important;
+  color: white;
+  text-transform: uppercase;
+  box-shadow: 0 6px 15px rgba(16, 185, 129, 0.25) !important;
+  border-radius: 10px !important;
+}
+
+.btn-guardar-full:hover {
+  background-color: #0d9668 !important;
+}
+
+/* Control de Error */
+.field-error {
+  border: 2px solid #ef4444 !important;
+  background-color: #fef2f2 !important;
+}
+
+/* Imágenes y Steps */
+.pic {
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.step { display: none; }
+.step.active { 
+  display: block; 
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.99); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Modales */
+#modal-registro-ok, #loadingModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 46, 70, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 999999;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.modal-notif-card, #loadingModal .modal-contenido {
+  background: white;
+  padding: 25px 20px;
+  border-radius: 16px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 15px 30px rgba(15, 46, 70, 0.2);
+  font-size: 16px;
+}
+
+.btn-notificar-wa {
+  background-color: #25D366;
+  color: white;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(37, 211, 102, 0.25);
+  transition: all 0.25s ease;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* =============================================================================
+   ADAPTACIÓN PARA PANTALLAS GRANDES (Desktop / Tablet)
+   ============================================================================= */
+@media screen and (min-width: 768px) {
   body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    margin: 0;
-    padding: 20px 15px;
-    background: linear-gradient(135deg, #eef2f5 0%, #dbe4eb 100%);
-    background-attachment: fixed;
-    display: flex;
-    justify-content: center;
-    color: var(--color-text-dark);
+    padding: 30px 20px;
   }
 
-  /* Contenedor Principal */
   #container {
-    width: 100%;
-    max-width: 850px;
-    margin: 15px auto;
-    padding: 40px 30px;
-    background-color: var(--color-bg-overlay);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-radius: var(--radius-lg);
-    box-shadow: 0 20px 40px rgba(15, 46, 70, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
-    box-sizing: border-box;
-    border: 1px solid rgba(255, 255, 255, 0.7);
-  }
-
-  /* Logo */
-  #header-logo-container {
-    width: 100%;
-    margin-bottom: 25px;
+    padding: 35px 30px;
   }
 
   #header-logo {
-    display: block !important;
-    width: 90%; 
-    max-width: 380px;
-    height: auto;
-    margin: 0 auto;
+    max-width: 340px;
   }
 
   h1, h3 {
-    font-size: 34px;
-    color: var(--color-nav-dark);
-    font-weight: 800;
-    margin: 15px 0;
-    letter-spacing: -0.5px;
+    font-size: 28px;
   }
 
   .section-title {
-    font-size: 24px !important;
-    font-weight: 800;
-    color: var(--color-secondary);
-    margin: 35px 0 20px 0;
-    border-bottom: 3px solid var(--color-secondary);
-    text-align: left;
-    padding-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  /* Grid e Inputs */
-  .grid-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    font-size: 20px !important;
   }
 
   .grid-item {
-    background: #ffffff;
-    padding: 22px;
-    border-radius: var(--radius-md);
-    border: 1px solid #e2e8f0;
-    text-align: left;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-    transition: all 0.3s ease;
-  }
-
-  .grid-item:hover {
-    border-color: var(--color-primary);
-    box-shadow: 0 8px 20px rgba(0, 168, 204, 0.12);
+    padding: 20px;
   }
 
   .grid-item label {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: var(--color-nav-dark);
-    display: block;
+    font-size: 16px;
   }
 
-  /* Entradas de Texto y Formularios */
-  .grid-item input {
-    width: 100%;
-    height: 60px;
-    font-size: 22px; 
-    padding: 0 18px;
-    border-radius: 10px;
-    border: 2px solid #cbd5e1;
-    background: #f8fafc;
-    color: var(--color-text-dark);
-    box-sizing: border-box;
-    transition: all 0.25s ease;
-  }
-
-  .grid-item input:focus {
-    border-color: var(--color-primary);
-    background: #ffffff;
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(0, 168, 204, 0.15);
-  }
-
-  /* Select Personalizado Institucional */
-  .grid-item select {
-    width: 100%;
-    height: 60px;
-    font-size: 22px;
-    padding: 0 18px;
-    border-radius: 10px;
-    border: 2px solid #cbd5e1;
-    background-color: #f8fafc;
-    box-sizing: border-box;
-    transition: all 0.25s ease;
-    color: var(--color-text-dark);
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%230f2e46' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 20px center;
-    background-size: 20px;
-  }
-
-  .grid-item select:focus {
-    border-color: var(--color-primary);
-    background-color: #ffffff;
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(0, 168, 204, 0.15);
-  }
-
-  /* Botones Generales */
-  .navigation-buttons {
-    display: flex;
-    gap: 15px;
-    margin-top: 35px;
+  .grid-item input, .grid-item select {
+    height: 48px;
+    font-size: 15px;
   }
 
   button {
-    background-color: var(--color-primary);
-    color: white;
-    padding: 22px 30px; 
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    font-weight: 700;
-    transition: all 0.25s ease;
-    box-shadow: 0 4px 12px rgba(0, 168, 204, 0.25);
-    flex: 1; 
-    display: inline-block;
-    box-sizing: border-box;
-    letter-spacing: 0.3px;
+    font-size: 16px;
+    padding: 16px 24px;
   }
 
-  button:hover {
-    background-color: var(--color-primary-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(0, 168, 204, 0.35);
-  }
-
-  button:active {
-    transform: translateY(1px);
-    filter: brightness(0.95);
-  }
-
-  /* Estilos para Botón Atrás / Secundario */
-  button[onclick*="atras"], #restaurar-btn {
-    background-color: #e2e8f0;
-    color: var(--color-nav-dark);
-    box-shadow: none;
-  }
-
-  button[onclick*="atras"]:hover, #restaurar-btn:hover {
-    background-color: #cbd5e1;
-    color: var(--color-nav-dark);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  }
-
-  /* Botón Guardar Final */
   .btn-guardar-full {
-    width: 100%;
-    margin-top: 25px !important;
-    padding: 24px !important;
-    font-size: 24px !important;
-    background-color: var(--color-success) !important;
-    color: white;
-    text-transform: uppercase;
-    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3) !important;
-    border-radius: 12px !important;
+    font-size: 18px !important;
   }
-
-  .btn-guardar-full:hover {
-    background-color: #0d9668 !important;
-    box-shadow: 0 12px 25px rgba(16, 185, 129, 0.4) !important;
-  }
-
-  /* Control de Error */
-  .field-error {
-    border: 2px solid #ef4444 !important;
-    background-color: #fef2f2 !important;
-  }
-
-  /* Imágenes y Steps */
-  .pic {
-    width: 100%;
-    border-radius: 12px;
-    margin-top: 15px;
-    border: 1px solid #e2e8f0;
-  }
-
-  .step { display: none; }
-  .step.active { 
-    display: block; 
-    animation: fadeIn 0.4s ease;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.99); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-  /* Responsivo para móviles */
-  @media screen and (max-width: 768px) {
-    .grid-item select, .grid-item input {
-      font-size: 18px;
-      height: 55px;
-    }
-    .grid-item label {
-      font-size: 22px;
-    }
-    button {
-      font-size: 18px;
-      padding: 18px 20px;
-    }
-  }
-
-  /* =============================================================================
-     MODAL DE NOTIFICACIÓN WHATSAPP
-     ============================================================================= */
-
-  #modal-registro-ok {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(15, 46, 70, 0.75);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 999999;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    font-family: 'Inter', sans-serif;
-  }
-
-  .modal-notif-card {
-    background: white;
-    padding: 40px 30px;
-    border-radius: 20px;
-    max-width: 450px;
-    width: 100%;
-    text-align: center;
-    box-shadow: 0 25px 50px rgba(15, 46, 70, 0.25);
-    animation: modalPop 0.3s ease-out;
-  }
-
-  @keyframes modalPop {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-  .btn-notificar-wa {
-    background-color: #25D366;
-    color: white;
-    width: 100%;
-    padding: 20px;
-    border: none;
-    border-radius: 12px;
-    font-size: 20px;
-    font-weight: 800;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .btn-notificar-wa:hover {
-    background-color: #20ba5a;
-    transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(37, 211, 102, 0.4);
-  }
-
-  .btn-notificar-wa:active {
-    transform: translateY(1px);
-  }
-
-
-
-#loadingModal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 9999999;
-  display: none;
-  justify-content: center;
-  align-items: center;
-}
-
-#loadingModal .modal-contenido {
-  background: white;
-  padding: 40px;
-  border-radius: 20px;
-  font-size: 24px;
 }
