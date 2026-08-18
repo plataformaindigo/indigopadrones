@@ -15,7 +15,8 @@
 body {
   /* Si la imagen está en la misma carpeta raíz que tu HTML */
   background-image: url("fondo.jpg"); /* Cambia "fondo.jpg" por el nombre real de tu archivo */
-  background-attachment: fixed;
+  /* Se quitó background-attachment: fixed; tiene soporte pobre en iOS Safari
+     (puede causar renders raros y problemas de scroll en celular) */
   background-size: cover;
   background-position: center;
 }
@@ -30,6 +31,29 @@ body {
     }
 
     .full-width { grid-column: span 3; }
+
+    /* Textos del bloque de instrucciones iniciales, ahora responsive
+       (antes estaban con font-size fijo inline: 42px / 32px / 28px,
+       lo que impedía que cualquier media query los achicara) */
+    .instrucciones-texto {
+      font-size: 18px;
+      font-weight: normal;
+      text-align: left;
+    }
+    .instrucciones-titulo {
+      font-size: 24px;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .instrucciones-nota {
+      margin: 0;
+      font-size: 15px;
+      font-style: italic;
+      opacity: 0.85;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      padding-top: 10px;
+    }
 
     /* Mobile Responsiveness mejorado */
     @media (max-width: 768px) {
@@ -52,12 +76,13 @@ body {
       }
 
       h1 { 
-        font-size: 32px;
+        font-size: 26px;
         margin-bottom: 20px;
       }
 
+      /* CORREGIDO: antes se agrandaba a 38px en mobile, ahora se achica */
       .section-title { 
-        font-size: 38px !important;
+        font-size: 20px !important;
         text-align: center; 
       }
 
@@ -65,6 +90,10 @@ body {
         font-size: 18px !important;
         padding: 0 10px;
       }
+
+      .instrucciones-texto { font-size: 16px; }
+      .instrucciones-titulo { font-size: 20px; }
+      .instrucciones-nota { font-size: 13px; }
     }
   </style>
 </head>
@@ -96,13 +125,9 @@ body {
           width: auto;">
 
           <div class="instrucciones-alert">
-            <div style="
-              margin-top: 15px; 
-              font-size: 32px; 
-              font-weight: normal; 
-              text-align: left;">
+            <div class="instrucciones-texto" style="margin-top: 15px;">
               
-              <span style="font-size: 42px; font-weight: bold; display: block; margin-bottom: 10px;">
+              <span class="instrucciones-titulo">
                 ⚠️ Atención:
               </span>
               
@@ -118,7 +143,7 @@ body {
                 <li>Certificado Único de Discapacidad (CUD)</li>
               </ul>
 
-              <p style="margin: 0; font-size: 28px; font-style: italic; opacity: 0.85; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 10px;">
+              <p class="instrucciones-nota">
                 💡 <strong>Nota:</strong> Para cada documento, podrá elegir entre tomar una foto con su cámara o seleccionar un archivo desde su galería.
               </p>
             </div>
@@ -1000,7 +1025,7 @@ function obtenerTodasLasFotosJSON() {
 .grid-fotos-3x3 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
+  gap: 15px;
   margin-top: 30px;
 }
 
@@ -1032,7 +1057,7 @@ function obtenerTodasLasFotosJSON() {
   border-radius: 8px;
 }
 
-.section-title {
+.modulo-foto-instancia .section-title {
   text-align: center;
   font-size: 17px;
 }
@@ -1065,17 +1090,10 @@ function obtenerTodasLasFotosJSON() {
   box-shadow: 0 20px 40px rgba(0,0,0,0.3); /* Sombra para darle profundidad */
 }
 
-/* Para que el contenido interno use todo el ancho y se vea ordenado */
-.modal-inner {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;           /* Más espacio entre botones */
-}
-
 /* Para agrandar los botones dentro del modal */
 .modal-inner button {
-  padding: 20px;       /* Botones más altos */
-  font-size: 60px;     /* Letra más grande */
+  padding: 14px;
+  font-size: 18px;
   font-weight: bold;
   cursor: pointer;
 }
@@ -1084,15 +1102,6 @@ function obtenerTodasLasFotosJSON() {
 .photo-modal::backdrop {
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px); /* Efecto de desenfoque al fondo */
-}
-
-/* --- MODIFICACIÓN PARA GRILLA DE 2 COLUMNAS EN MÓVILES --- */
-
-.grid-fotos-3x3 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Por defecto 2 columnas */
-  gap: 15px; /* Reducimos un poco el espacio para que quepan bien */
-  margin-top: 30px;
 }
 
 @media (max-width: 600px) {
@@ -1105,12 +1114,22 @@ function obtenerTodasLasFotosJSON() {
     padding: 10px; /* Reducimos el padding interno del cuadro */
   }
 
-  .section-title {
+  .modulo-foto-instancia .section-title {
     font-size: 14px; /* Achicamos el texto para que no se rompa el diseño */
   }
 
   .photo-drop-area {
     min-height: 150px; /* Altura más baja para que entren más cuadros en pantalla */
+  }
+
+  .photo-modal {
+    width: 92%;
+    padding: 20px;
+  }
+
+  .modal-inner button {
+    font-size: 16px;
+    padding: 12px;
   }
 }
 </style>
